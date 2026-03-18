@@ -220,6 +220,11 @@ export default function FitnessPlan() {
           </div>
         )}
       </div>
+
+      {/* Copyright */}
+      <div style={{ borderTop: "1px solid #1a1a1a", padding: "24px 20px", textAlign: "center", color: "#444", fontSize: 12 }}>
+        © {new Date().getFullYear()} Cut & Build. All rights reserved.
+      </div>
     </div>
   );
 }
