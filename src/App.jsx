@@ -71,57 +71,179 @@ const rules = [
   { icon: "🧘", rule: "Stretch after every session", detail: "Tight hips & hamstrings are a top cause of back pain" },
 ];
 
+const themes = {
+  dark: {
+    bg: "#0d0d0d",
+    text: "#f0ede8",
+    headerBg: "linear-gradient(135deg,#1a0808 0%,#0d0d0d 65%)",
+    headerBorder: "#1a1a1a",
+    headerGlow: "rgba(230,57,70,0.12)",
+    subtitleText: "#777",
+    statLabel: "#555",
+    dayBg: "#161616",
+    dayBorder: "#1e1e1e",
+    dayInactiveText: "#f0ede8",
+    dayFocusInactive: "#555",
+    daySelectorBorder: "#161616",
+    tabBorder: "#2a2a2a",
+    tabText: "#777",
+    tabHoverBorder: "#444",
+    tabHoverText: "#f0ede8",
+    cardBg: "#161616",
+    cardBorder: "#1e1e1e",
+    cardHoverBg: "#1a1a1a",
+    expandBg: "#111",
+    expandBorder: "#1e1e1e",
+    chevronColor: "#555",
+    tipText: "#555",
+    exampleText: "#bbb",
+    exampleLabel: "#f0ede8",
+    greenText: "#4caf50",
+    greenBg: "#0a180a",
+    greenBorder: "#1a3a1a",
+    warningBg: "#111",
+    warningBorder: "#222",
+    warningText: "#555",
+    warningStrong: "#777",
+    mealBg: "#141414",
+    mealBorder: "#1e1e1e",
+    mealText: "#999",
+    ruleBg: "#141414",
+    ruleBorder: "#1a1a1a",
+    ruleDetail: "#666",
+    resultBg: "linear-gradient(135deg,#0d1a0d,#0d0d0d)",
+    resultBorder: "#1a2a1a",
+    resultText: "#777",
+    resultStrong: "#aaa",
+    homeBg: "#0d1a0d",
+    homeText: "#4caf50",
+    homeBorder: "#1a3a1a",
+    backBg: "#0d1520",
+    backText: "#64b5f6",
+    backBorder: "#1a2a3a",
+    toggleBg: "#222",
+    toggleText: "#aaa",
+    toggleHoverBg: "#333",
+    hintText: "#444",
+  },
+  light: {
+    bg: "#f5f3ef",
+    text: "#1a1a1a",
+    headerBg: "linear-gradient(135deg,#fdf0f0 0%,#f5f3ef 65%)",
+    headerBorder: "#e0ddd8",
+    headerGlow: "rgba(230,57,70,0.08)",
+    subtitleText: "#666",
+    statLabel: "#888",
+    dayBg: "#fff",
+    dayBorder: "#e0ddd8",
+    dayInactiveText: "#1a1a1a",
+    dayFocusInactive: "#888",
+    daySelectorBorder: "#e8e5e0",
+    tabBorder: "#d0cdc8",
+    tabText: "#888",
+    tabHoverBorder: "#aaa",
+    tabHoverText: "#1a1a1a",
+    cardBg: "#fff",
+    cardBorder: "#e8e5e0",
+    cardHoverBg: "#faf9f7",
+    expandBg: "#f9f8f6",
+    expandBorder: "#e8e5e0",
+    chevronColor: "#aaa",
+    tipText: "#888",
+    exampleText: "#555",
+    exampleLabel: "#1a1a1a",
+    greenText: "#2e7d32",
+    greenBg: "#edf7ee",
+    greenBorder: "#c8e6c9",
+    warningBg: "#fef9f0",
+    warningBorder: "#e0ddd8",
+    warningText: "#888",
+    warningStrong: "#555",
+    mealBg: "#fff",
+    mealBorder: "#e8e5e0",
+    mealText: "#555",
+    ruleBg: "#fff",
+    ruleBorder: "#e8e5e0",
+    ruleDetail: "#777",
+    resultBg: "linear-gradient(135deg,#edf7ee,#f5f3ef)",
+    resultBorder: "#c8e6c9",
+    resultText: "#666",
+    resultStrong: "#333",
+    homeBg: "#edf7ee",
+    homeText: "#2e7d32",
+    homeBorder: "#c8e6c9",
+    backBg: "#e8f0fe",
+    backText: "#1565c0",
+    backBorder: "#bbdefb",
+    toggleBg: "#e8e5e0",
+    toggleText: "#555",
+    toggleHoverBg: "#d8d5d0",
+    hintText: "#aaa",
+  },
+};
+
 export default function FitnessPlan() {
   const [activeDay, setActiveDay] = useState("Monday");
   const [tab, setTab] = useState("workout");
   const [expandedEx, setExpandedEx] = useState(null);
+  const [mode, setMode] = useState("dark");
+
+  const t = themes[mode];
 
   return (
-    <div style={{ fontFamily: "'DM Sans','Helvetica Neue',sans-serif", background: "#0d0d0d", minHeight: "100vh", color: "#f0ede8", paddingBottom: 60 }}>
+    <div style={{ fontFamily: "'DM Sans','Helvetica Neue',sans-serif", background: t.bg, minHeight: "100vh", color: t.text, paddingBottom: 60, transition: "background 0.3s, color 0.3s" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Barlow+Condensed:wght@700;800;900&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         .day-btn { background: none; border: none; cursor: pointer; transition: all 0.18s; }
         .day-btn:hover { transform: translateY(-2px); }
-        .tab-btn { background: none; border: 1px solid #2a2a2a; cursor: pointer; padding: 9px 20px; border-radius: 100px; font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; transition: all 0.18s; color: #777; }
+        .tab-btn { background: none; border: 1px solid ${t.tabBorder}; cursor: pointer; padding: 9px 20px; border-radius: 100px; font-family: inherit; font-size: 13px; font-weight: 500; letter-spacing: 0.04em; transition: all 0.18s; color: ${t.tabText}; }
         .tab-btn.active { background: #e63946; border-color: #e63946; color: #fff; }
-        .tab-btn:hover:not(.active) { border-color: #444; color: #f0ede8; }
-        .ex-card { background: #161616; border-radius: 12px; border: 1px solid #1e1e1e; margin-bottom: 9px; overflow: hidden; }
+        .tab-btn:hover:not(.active) { border-color: ${t.tabHoverBorder}; color: ${t.tabHoverText}; }
+        .ex-card { background: ${t.cardBg}; border-radius: 12px; border: 1px solid ${t.cardBorder}; margin-bottom: 9px; overflow: hidden; }
         .ex-header { padding: 15px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; transition: background 0.15s; }
-        .ex-header:hover { background: #1a1a1a; }
-        .ex-expand { background: #111; border-top: 1px solid #1e1e1e; padding: 14px 18px; }
-        .chevron { transition: transform 0.2s; font-size: 11px; color: #555; margin-top: 4px; flex-shrink: 0; }
+        .ex-header:hover { background: ${t.cardHoverBg}; }
+        .ex-expand { background: ${t.expandBg}; border-top: 1px solid ${t.expandBorder}; padding: 14px 18px; }
+        .chevron { transition: transform 0.2s; font-size: 11px; color: ${t.chevronColor}; margin-top: 4px; flex-shrink: 0; }
         .chevron.open { transform: rotate(180deg); color: #e63946; }
+        .theme-toggle { background: ${t.toggleBg}; border: none; cursor: pointer; padding: 6px 14px; border-radius: 100px; font-family: inherit; font-size: 12px; font-weight: 500; color: ${t.toggleText}; transition: all 0.18s; display: flex; align-items: center; gap: 6px; }
+        .theme-toggle:hover { background: ${t.toggleHoverBg}; }
       `}</style>
 
       {/* Header */}
-      <div style={{ background: "linear-gradient(135deg,#1a0808 0%,#0d0d0d 65%)", borderBottom: "1px solid #1a1a1a", padding: "36px 24px 28px", textAlign: "center", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: -50, right: -50, width: 220, height: 220, borderRadius: "50%", background: "radial-gradient(circle,rgba(230,57,70,0.12) 0%,transparent 70%)" }} />
+      <div style={{ background: t.headerBg, borderBottom: `1px solid ${t.headerBorder}`, padding: "36px 24px 28px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: -50, right: -50, width: 220, height: 220, borderRadius: "50%", background: `radial-gradient(circle,${t.headerGlow} 0%,transparent 70%)` }} />
+        {/* Theme toggle */}
+        <div style={{ position: "absolute", top: 16, right: 16, zIndex: 1 }}>
+          <button className="theme-toggle" onClick={() => setMode(mode === "dark" ? "light" : "dark")}>
+            {mode === "dark" ? "☀️" : "🌙"} {mode === "dark" ? "Light" : "Dark"}
+          </button>
+        </div>
         <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
           <div style={{ background: "#e63946", color: "#fff", fontSize: 10, fontWeight: 700, letterSpacing: "0.15em", padding: "3px 12px", borderRadius: 100, textTransform: "uppercase" }}>8-Week Program</div>
-          <div style={{ background: "#0d1a0d", color: "#4caf50", fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", padding: "3px 12px", borderRadius: 100, textTransform: "uppercase", border: "1px solid #1a3a1a" }}>🏠 Home-Friendly</div>
-          <div style={{ background: "#0d1520", color: "#64b5f6", fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", padding: "3px 12px", borderRadius: 100, textTransform: "uppercase", border: "1px solid #1a2a3a" }}>🦴 Back-Safe</div>
+          <div style={{ background: t.homeBg, color: t.homeText, fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", padding: "3px 12px", borderRadius: 100, textTransform: "uppercase", border: `1px solid ${t.homeBorder}` }}>🏠 Home-Friendly</div>
+          <div style={{ background: t.backBg, color: t.backText, fontSize: 10, fontWeight: 700, letterSpacing: "0.12em", padding: "3px 12px", borderRadius: 100, textTransform: "uppercase", border: `1px solid ${t.backBorder}` }}>🦴 Back-Safe</div>
         </div>
         <h1 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: "clamp(52px,12vw,76px)", fontWeight: 900, lineHeight: 0.95, textTransform: "uppercase", marginBottom: 10 }}>
           Cut &<br /><span style={{ color: "#e63946" }}>Build</span>
         </h1>
-        <p style={{ color: "#777", fontSize: 14, maxWidth: 400, margin: "0 auto" }}>Lose fat. Build abs. All exercises are back-safe and done from home.</p>
+        <p style={{ color: t.subtitleText, fontSize: 14, maxWidth: 400, margin: "0 auto" }}>Lose fat. Build abs. All exercises are back-safe and done from home.</p>
         <div style={{ display: "flex", justifyContent: "center", gap: 36, marginTop: 26, flexWrap: "wrap" }}>
           {[["4–5×","workouts/week"],["~500","cal deficit/day"],["150g","daily protein"]].map(([v,l]) => (
             <div key={l} style={{ textAlign: "center" }}>
               <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 30, fontWeight: 800, color: "#e63946" }}>{v}</div>
-              <div style={{ fontSize: 10, color: "#555", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 2 }}>{l}</div>
+              <div style={{ fontSize: 10, color: t.statLabel, letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 2 }}>{l}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Day Selector */}
-      <div style={{ display: "flex", overflowX: "auto", gap: 8, padding: "18px 20px", borderBottom: "1px solid #161616", scrollbarWidth: "none" }}>
+      <div style={{ display: "flex", overflowX: "auto", gap: 8, padding: "18px 20px", borderBottom: `1px solid ${t.daySelectorBorder}`, scrollbarWidth: "none" }}>
         {days.map(d => (
-          <button key={d.name} className="day-btn" onClick={() => { setActiveDay(d.name); setExpandedEx(null); }} style={{ flexShrink: 0, padding: "11px 14px", borderRadius: 11, background: activeDay === d.name ? "#e63946" : "#161616", border: `1px solid ${activeDay === d.name ? "#e63946" : "#1e1e1e"}`, textAlign: "center", minWidth: 68 }}>
-            <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 17, fontWeight: 800, color: activeDay === d.name ? "#fff" : "#f0ede8", letterSpacing: "0.05em" }}>{d.label}</div>
-            <div style={{ fontSize: 9, color: activeDay === d.name ? "rgba(255,255,255,0.75)" : "#555", marginTop: 3, lineHeight: 1.3 }}>{d.focus}</div>
+          <button key={d.name} className="day-btn" onClick={() => { setActiveDay(d.name); setExpandedEx(null); }} style={{ flexShrink: 0, padding: "11px 14px", borderRadius: 11, background: activeDay === d.name ? "#e63946" : t.dayBg, border: `1px solid ${activeDay === d.name ? "#e63946" : t.dayBorder}`, textAlign: "center", minWidth: 68 }}>
+            <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 17, fontWeight: 800, color: activeDay === d.name ? "#fff" : t.dayInactiveText, letterSpacing: "0.05em" }}>{d.label}</div>
+            <div style={{ fontSize: 9, color: activeDay === d.name ? "rgba(255,255,255,0.75)" : t.dayFocusInactive, marginTop: 3, lineHeight: 1.3 }}>{d.focus}</div>
           </button>
         ))}
       </div>
@@ -129,8 +251,8 @@ export default function FitnessPlan() {
       {/* Content */}
       <div style={{ padding: "22px 20px", maxWidth: 660, margin: "0 auto" }}>
         <div style={{ display: "flex", gap: 8, marginBottom: 22, flexWrap: "wrap" }}>
-          {[["workout","🏋️ Workout"],["nutrition","🥗 Nutrition"],["rules","📋 Ground Rules"]].map(([t,l]) => (
-            <button key={t} className={`tab-btn ${tab===t?"active":""}`} onClick={() => setTab(t)}>{l}</button>
+          {[["workout","🏋️ Workout"],["nutrition","🥗 Nutrition"],["rules","📋 Ground Rules"]].map(([tb,l]) => (
+            <button key={tb} className={`tab-btn ${tab===tb?"active":""}`} onClick={() => setTab(tb)}>{l}</button>
           ))}
         </div>
 
@@ -140,7 +262,7 @@ export default function FitnessPlan() {
               <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 34, fontWeight: 800, textTransform: "uppercase" }}>{activeDay}</h2>
               <div style={{ color: "#e63946", fontSize: 13, fontWeight: 500, marginTop: 3 }}>{days.find(d => d.name === activeDay)?.focus}</div>
             </div>
-            <div style={{ fontSize: 11, color: "#444", marginBottom: 14, display: "flex", alignItems: "center", gap: 6 }}>
+            <div style={{ fontSize: 11, color: t.hintText, marginBottom: 14, display: "flex", alignItems: "center", gap: 6 }}>
               <span style={{ color: "#e63946" }}>▼</span> Tap any exercise to see how to do it
             </div>
             {workouts[activeDay].map((ex, i) => {
@@ -150,7 +272,7 @@ export default function FitnessPlan() {
                   <div className="ex-header" onClick={() => setExpandedEx(isOpen ? null : i)}>
                     <div style={{ flex: 1 }}>
                       <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 4 }}>{ex.name}</div>
-                      <div style={{ color: "#555", fontSize: 11 }}>{ex.tip}</div>
+                      <div style={{ color: t.tipText, fontSize: 11 }}>{ex.tip}</div>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                       <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 13, fontWeight: 700, color: "#e63946", background: "rgba(230,57,70,0.1)", padding: "4px 10px", borderRadius: 6, whiteSpace: "nowrap" }}>{ex.sets}</div>
@@ -159,11 +281,11 @@ export default function FitnessPlan() {
                   </div>
                   {isOpen && (
                     <div className="ex-expand">
-                      <div style={{ fontSize: 13, color: "#bbb", lineHeight: 1.75, marginBottom: 10 }}>
-                        <strong style={{ color: "#f0ede8", display: "block", marginBottom: 6, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em" }}>How to do it</strong>
+                      <div style={{ fontSize: 13, color: t.exampleText, lineHeight: 1.75, marginBottom: 10 }}>
+                        <strong style={{ color: t.exampleLabel, display: "block", marginBottom: 6, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em" }}>How to do it</strong>
                         {ex.example}
                       </div>
-                      <div style={{ fontSize: 11, color: "#4caf50", background: "#0a180a", padding: "8px 12px", borderRadius: 8, border: "1px solid #1a3a1a", lineHeight: 1.5 }}>
+                      <div style={{ fontSize: 11, color: t.greenText, background: t.greenBg, padding: "8px 12px", borderRadius: 8, border: `1px solid ${t.greenBorder}`, lineHeight: 1.5 }}>
                         {ex.backNote}
                       </div>
                     </div>
@@ -171,8 +293,8 @@ export default function FitnessPlan() {
                 </div>
               );
             })}
-            <div style={{ marginTop: 18, padding: 14, background: "#111", borderRadius: 10, border: "1px dashed #222", fontSize: 12, color: "#555", lineHeight: 1.6 }}>
-              ⚠️ <strong style={{ color: "#777" }}>Stop immediately</strong> if you feel sharp or shooting pain. A mild muscle burn is fine — back pain is not. When in doubt, skip the exercise.
+            <div style={{ marginTop: 18, padding: 14, background: t.warningBg, borderRadius: 10, border: `1px dashed ${t.warningBorder}`, fontSize: 12, color: t.warningText, lineHeight: 1.6 }}>
+              ⚠️ <strong style={{ color: t.warningStrong }}>Stop immediately</strong> if you feel sharp or shooting pain. A mild muscle burn is fine — back pain is not. When in doubt, skip the exercise.
             </div>
           </div>
         )}
@@ -180,18 +302,18 @@ export default function FitnessPlan() {
         {tab === "nutrition" && (
           <div>
             <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 34, fontWeight: 800, textTransform: "uppercase", marginBottom: 4 }}>Daily Meal Plan</h2>
-            <p style={{ color: "#555", fontSize: 13, marginBottom: 22 }}>~1,800–2,000 cal/day · 150g protein · high fiber · low sugar</p>
+            <p style={{ color: t.subtitleText, fontSize: 13, marginBottom: 22 }}>~1,800–2,000 cal/day · 150g protein · high fiber · low sugar</p>
             {meals.map((meal, i) => (
-              <div key={i} style={{ background: "#141414", borderLeft: "3px solid #e63946", borderRadius: "0 12px 12px 0", padding: "15px 18px", marginBottom: 10 }}>
+              <div key={i} style={{ background: t.mealBg, borderLeft: "3px solid #e63946", borderRadius: "0 12px 12px 0", padding: "15px 18px", marginBottom: 10 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                   <span style={{ fontSize: 20 }}>{meal.emoji}</span>
                   <div>
                     <div style={{ fontWeight: 600, fontSize: 14 }}>{meal.label}</div>
-                    <div style={{ color: "#555", fontSize: 11 }}>{meal.time}</div>
+                    <div style={{ color: t.subtitleText, fontSize: 11 }}>{meal.time}</div>
                   </div>
                 </div>
                 {meal.options.map((opt, j) => (
-                  <div key={j} style={{ fontSize: 13, color: "#999", padding: "5px 0", borderTop: j > 0 ? "1px solid #1e1e1e" : "none", display: "flex", gap: 8 }}>
+                  <div key={j} style={{ fontSize: 13, color: t.mealText, padding: "5px 0", borderTop: j > 0 ? `1px solid ${t.mealBorder}` : "none", display: "flex", gap: 8 }}>
                     <span style={{ color: "#e63946", flexShrink: 0 }}>›</span>{opt}
                   </div>
                 ))}
@@ -203,26 +325,26 @@ export default function FitnessPlan() {
         {tab === "rules" && (
           <div>
             <h2 style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 34, fontWeight: 800, textTransform: "uppercase", marginBottom: 4 }}>Non-Negotiables</h2>
-            <p style={{ color: "#555", fontSize: 13, marginBottom: 20 }}>These habits matter as much as any workout.</p>
+            <p style={{ color: t.subtitleText, fontSize: 13, marginBottom: 20 }}>These habits matter as much as any workout.</p>
             {rules.map((r, i) => (
-              <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "13px 15px", background: "#141414", borderRadius: 10, marginBottom: 8, border: "1px solid #1a1a1a" }}>
+              <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "13px 15px", background: t.ruleBg, borderRadius: 10, marginBottom: 8, border: `1px solid ${t.ruleBorder}` }}>
                 <span style={{ fontSize: 22, flexShrink: 0 }}>{r.icon}</span>
                 <div>
                   <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 3 }}>{r.rule}</div>
-                  <div style={{ color: "#666", fontSize: 12 }}>{r.detail}</div>
+                  <div style={{ color: t.ruleDetail, fontSize: 12 }}>{r.detail}</div>
                 </div>
               </div>
             ))}
-            <div style={{ marginTop: 18, background: "linear-gradient(135deg,#0d1a0d,#0d0d0d)", border: "1px solid #1a2a1a", borderRadius: 12, padding: 20 }}>
-              <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 20, fontWeight: 800, color: "#4caf50", marginBottom: 8 }}>YOUR BACK & YOUR RESULTS</div>
-              <p style={{ color: "#777", fontSize: 13, lineHeight: 1.7 }}>A bad back doesn't mean you can't get lean and strong — it means you train <strong style={{ color: "#aaa" }}>smarter</strong>. Every exercise here builds core strength and burns fat <strong style={{ color: "#aaa" }}>without loading the spine</strong>. Consistency beats intensity every time.</p>
+            <div style={{ marginTop: 18, background: t.resultBg, border: `1px solid ${t.resultBorder}`, borderRadius: 12, padding: 20 }}>
+              <div style={{ fontFamily: "'Barlow Condensed',sans-serif", fontSize: 20, fontWeight: 800, color: t.greenText, marginBottom: 8 }}>YOUR BACK & YOUR RESULTS</div>
+              <p style={{ color: t.resultText, fontSize: 13, lineHeight: 1.7 }}>A bad back doesn't mean you can't get lean and strong — it means you train <strong style={{ color: t.resultStrong }}>smarter</strong>. Every exercise here builds core strength and burns fat <strong style={{ color: t.resultStrong }}>without loading the spine</strong>. Consistency beats intensity every time.</p>
             </div>
           </div>
         )}
       </div>
 
       {/* Copyright */}
-      <div style={{ borderTop: "1px solid #1a1a1a", padding: "24px 20px", textAlign: "center", color: "#444", fontSize: 12 }}>
+      <div style={{ borderTop: `1px solid ${t.headerBorder}`, padding: "24px 20px", textAlign: "center", color: t.hintText, fontSize: 12 }}>
         © {new Date().getFullYear()} Cut & Build. All rights reserved.
       </div>
     </div>
