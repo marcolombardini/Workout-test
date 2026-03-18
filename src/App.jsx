@@ -342,6 +342,11 @@ export default function FitnessPlan() {
           </div>
         )}
       </div>
+
+      {/* Copyright */}
+      <div style={{ borderTop: `1px solid ${t.headerBorder}`, padding: "24px 20px", textAlign: "center", color: t.hintText, fontSize: 12 }}>
+        © {new Date().getFullYear()} Cut & Build. All rights reserved.
+      </div>
     </div>
   );
 }
