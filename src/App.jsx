@@ -186,7 +186,7 @@ export default function FitnessPlan() {
   const [activeDay, setActiveDay] = useState("Monday");
   const [tab, setTab] = useState("workout");
   const [expandedEx, setExpandedEx] = useState(null);
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
 
   const t = themes[mode];
 
